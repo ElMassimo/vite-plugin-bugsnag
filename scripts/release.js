@@ -34,7 +34,7 @@ const versionIncrements = [
   'prepatch',
   'preminor',
   'premajor',
-  'prerelease'
+  'prerelease',
 ]
 
 /**
@@ -87,7 +87,7 @@ function jsPackage () {
     updateVersion (version) {
       const newContent = { ...JSON.parse(content), version }
       fs.writeFileSync(path, `${JSON.stringify(newContent, null, 2)}\n`)
-    }
+    },
   }
 }
 
@@ -103,7 +103,7 @@ async function main () {
     message: 'Select release type',
     choices: versionIncrements
       .map(i => `${i} (${inc(i)})`)
-      .concat(['custom'])
+      .concat(['custom']),
   })
 
   let targetVersion
@@ -115,10 +115,11 @@ async function main () {
       type: 'input',
       name: 'version',
       message: 'Input custom version',
-      initial: pkg.version
+      initial: pkg.version,
     })
     targetVersion = res.version
-  } else {
+  }
+  else {
     targetVersion = release.match(/\((.*)\)/)[1]
   }
 
@@ -132,7 +133,7 @@ async function main () {
   const { yes } = await prompt({
     type: 'confirm',
     name: 'yes',
-    message: `Releasing ${tag}. Confirm?`
+    message: `Releasing ${tag}. Confirm?`,
   })
 
   if (!yes) return
@@ -152,7 +153,8 @@ async function main () {
     step('\nCommitting changes...')
     await runIfNotDry('git', ['add', '-A'])
     await runIfNotDry('git', ['commit', '-m', `release: ${tag}`])
-  } else {
+  }
+  else {
     console.log('No changes to commit.')
   }
 
@@ -175,10 +177,11 @@ async function publishPackage (version, runIfNotDry) {
   try {
     await runIfNotDry('pnpm', ['publish'], {
       stdio: 'inherit',
-      cwd: resolve('.')
+      cwd: resolve('.'),
     })
     console.log(chalk.green(`Successfully published ${name}@${version}`))
-  } catch (e) {
+  }
+  catch (e) {
     if (e.stderr.match(/previously published/)) console.log(chalk.red(`Skipping already published: ${name}`))
     else throw e
   }
