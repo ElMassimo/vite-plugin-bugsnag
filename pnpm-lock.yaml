@@ -5,6 +5,7 @@ importers:
       bugsnag-build-reporter: 1.0.3
       chalk: 4.1.1
       debug: 4.3.1
+      fast-glob: 3.2.5
       p-limit: 3.1.0
       ts-jest: 26.5.5_jest@26.6.3+typescript@4.2.4
       ts-node: 9.1.1_typescript@4.2.4
@@ -42,6 +43,7 @@ importers:
       debug: ^4.3.1
       eslint: ^7.17.0
       eslint-plugin-jest: ^24.3.5
+      fast-glob: ^3.2.5
       husky: ^5.1.3
       jest: ^26.6.3
       lint-staged: ^10.5.4
@@ -697,13 +699,11 @@ packages:
     dependencies:
       '@nodelib/fs.stat': 2.0.4
       run-parallel: 1.2.0
-    dev: true
     engines:
       node: '>= 8'
     resolution:
       integrity: sha512-33g3pMJk3bg5nXbL/+CY6I2eJDzZAni49PfJnL5fghPTggPvBd/pFNSgJsdAgWptuFu7qq/ERvOYFlhvsLTCKA==
   /@nodelib/fs.stat/2.0.4:
-    dev: true
     engines:
       node: '>= 8'
     resolution:
@@ -712,7 +712,6 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.4
       fastq: 1.11.0
-    dev: true
     engines:
       node: '>= 8'
     resolution:
@@ -3150,7 +3149,6 @@ packages:
       merge2: 1.4.1
       micromatch: 4.0.4
       picomatch: 2.2.3
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -3173,7 +3171,6 @@ packages:
   /fastq/1.11.0:
     dependencies:
       reusify: 1.0.4
-    dev: true
     resolution:
       integrity: sha512-7Eczs8gIPDrVzT+EksYBcupqMyxSHXXrHOLRRxU2/DicV8789MRBRR8+Hc2uWzUupOs4YS4JzBmBxjjCVBxD/g==
   /fb-watchman/2.0.1:
@@ -3514,7 +3511,6 @@ packages:
   /glob-parent/5.1.2:
     dependencies:
       is-glob: 4.0.1
-    dev: true
     engines:
       node: '>= 6'
     resolution:
@@ -3990,7 +3986,6 @@ packages:
     resolution:
       integrity: sha512-arnXMxT1hhoKo9k1LZdmlNyJdDDfy2v0fXjFlmok4+i8ul/6WlbVge9bhM74OpNPQPMGUToDtz+KXa1PneJxOA==
   /is-extglob/2.1.1:
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -4022,7 +4017,6 @@ packages:
   /is-glob/4.0.1:
     dependencies:
       is-extglob: 2.1.1
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -5180,7 +5174,6 @@ packages:
     resolution:
       integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
   /merge2/1.4.1:
-    dev: true
     engines:
       node: '>= 8'
     resolution:
@@ -6399,7 +6392,6 @@ packages:
     resolution:
       integrity: sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
   /reusify/1.0.4:
-    dev: true
     engines:
       iojs: '>=1.0.0'
       node: '>=0.10.0'

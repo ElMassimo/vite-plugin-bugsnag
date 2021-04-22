@@ -5,7 +5,7 @@ describe('BugsnagBuildReporterPlugin', () => {
     expect.assertions(3)
     await createServer({
       done,
-      onResponse (body) {
+      onRequest (body) {
         const build = JSON.parse(body)
         expect(build).toBeDefined()
         expect(build.appVersion).toEqual('1.2.3')
@@ -20,7 +20,7 @@ describe('BugsnagBuildReporterPlugin', () => {
   test('doesn’t send upon unsuccessful build', async (done) => {
     await createServer({
       done,
-      onResponse (body) {
+      onRequest (body) {
         done.fail(`received unexpected request:\n\n${body}`)
       },
       async withServer ({ port }) {
