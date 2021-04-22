@@ -29,6 +29,7 @@ export default function BugsnagSourceMapUploaderPlugin (config: SourceMapUploade
 
   return {
     name: 'bugsnag-source-map-uploader',
+    apply: 'build',
 
     /**
      * Enables sourcemap generation unless the option is explicitly disabled.
