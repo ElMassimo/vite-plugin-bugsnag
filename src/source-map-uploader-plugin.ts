@@ -72,7 +72,6 @@ export default function BugsnagSourceMapUploaderPlugin (config: SourceMapUploade
 
       const files = await glob('./**/*.map', { cwd: outputDir })
       const sourcemaps = files.flatMap(sourcemapFromFile)
-      console.log('result', { files, sourcemaps })
       await Promise.all(
         sourcemaps.map(sourcemap => limitParallelism(() => uploadSourcemap(sourcemap))),
       )

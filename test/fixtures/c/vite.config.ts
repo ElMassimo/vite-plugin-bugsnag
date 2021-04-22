@@ -14,7 +14,6 @@ export default defineConfig({
     BugsnagSourceMapUploaderPlugin({
       apiKey: 'YOUR_API_KEY',
       endpoint: getEndpoint(__dirname),
-      ignoredBundleExtensions: ['.js'],
     }),
   ],
 })

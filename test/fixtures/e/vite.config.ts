@@ -7,14 +7,14 @@ export default defineConfig({
   base: 'https://foobar.com/js/',
   build: {
     rollupOptions: {
-      input: [resolve(__dirname, './src/index.js')],
+      input: [resolve(__dirname, './app.js')],
     },
   },
   plugins: [
     BugsnagSourceMapUploaderPlugin({
       apiKey: 'YOUR_API_KEY',
+      codeBundleId: '1.0.0-b12',
       endpoint: getEndpoint(__dirname),
-      ignoredBundleExtensions: ['.js'],
     }),
   ],
 })

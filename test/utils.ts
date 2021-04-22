@@ -16,6 +16,7 @@ export interface Options {
 
 export interface FormDataPart {
   name: string
+  filename: string
   stream: Readable
   mimetype: string
 }
@@ -70,8 +71,8 @@ export async function createServer ({ done, handleRequest, onRequest, withServer
 
 interface CreateFormServerOptions {
   done: jest.DoneCallback
-  onRequest: (data: FormData) => void
-  onPart: (part: FormDataPart, data: string, partsRead: number) => boolean
+  onRequest?: (data: FormData) => void
+  onPart?: (part: FormDataPart, data: string, partsRead: number) => boolean
   withServer: (options: Options) => Promise<void>
 }
 
@@ -89,7 +90,7 @@ export async function createFormServer ({ done, withServer, onRequest, onPart }:
           onRequest(data)
           let partsRead = 0
           let bail = false
-          data.parts.forEach((part) => {
+          onPart && data.parts.forEach((part) => {
             if (bail) return
             part.stream.pipe(concat((data: string) => {
               partsRead++
