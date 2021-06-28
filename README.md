@@ -109,7 +109,7 @@ export default defineConfig({
     BugsnagSourceMapUploaderPlugin({
       apiKey: 'YOUR_API_KEY',
       appVersion: '1.2.3',
-      publicPath: 'https://your-app.xyz/assets/',
+      base: 'https://your-app.xyz/assets/',
     }),
   ],
 })
