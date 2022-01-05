@@ -1,4 +1,6 @@
-import { SourceMapUploaderConfig, BugsnagSourceMapUploaderPlugin } from 'vite-plugin-bugsnag'
+import { describe, test, expect } from 'vitest'
+import { BugsnagSourceMapUploaderPlugin } from 'vite-plugin-bugsnag'
+import type { SourceMapUploaderConfig } from 'vite-plugin-bugsnag'
 import { createFormServer, buildFixture } from './utils'
 
 describe('BugsnagSourceMapUploaderPlugin', () => {

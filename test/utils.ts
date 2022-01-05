@@ -1,11 +1,12 @@
 import * as http from 'http'
 import type { AddressInfo } from 'net'
 import { join } from 'path'
+import type { Readable } from 'node:stream'
 import { build } from 'vite'
 import parseFormdata from 'parse-formdata'
 import once from 'once'
 import concat from 'concat-stream'
-import type { Readable } from 'node:stream'
+import type { DoneCallback } from 'vitest'
 import { writeServerPort } from './fixtures/support'
 
 type Fixture = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g'
@@ -33,7 +34,7 @@ export async function buildFixture (name: Fixture, { port }: Options) {
 }
 
 interface CreateServerOptions {
-  done: jest.DoneCallback
+  done: DoneCallback
   onRequest?: (body: string) => void
   handleRequest?: (req: http.IncomingMessage, res: http.ServerResponse) => void
   withServer: (options: Options) => Promise<void>
@@ -52,7 +53,7 @@ export async function createServer ({ done, handleRequest, onRequest, withServer
           }
           catch (error) {
             res.end(error.message)
-            done.fail(error)
+            done(error)
           }
         })
       }
@@ -70,7 +71,7 @@ export async function createServer ({ done, handleRequest, onRequest, withServer
 }
 
 interface CreateFormServerOptions {
-  done: jest.DoneCallback
+  done: DoneCallback
   onRequest?: (data: FormData) => void
   onPart?: (part: FormDataPart, data: string, partsRead: number) => boolean
   withServer: (options: Options) => Promise<void>
@@ -84,7 +85,7 @@ export async function createFormServer ({ done, withServer, onRequest, onPart }:
       parseFormdata(req, once((error: Error | undefined, data: FormData) => {
         if (error) {
           res.end(error.message)
-          done.fail(error)
+          done(error)
         }
         try {
           onRequest(data)
@@ -101,7 +102,7 @@ export async function createFormServer ({ done, withServer, onRequest, onPart }:
         }
         catch (error) {
           res.end(error.message)
-          done.fail(error)
+          done(error)
         }
       }))
     },

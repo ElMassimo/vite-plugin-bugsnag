@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest'
 import { createServer, buildFixture } from './utils'
 
 describe('BugsnagBuildReporterPlugin', () => {
@@ -21,7 +22,7 @@ describe('BugsnagBuildReporterPlugin', () => {
     await createServer({
       done,
       onRequest (body) {
-        done.fail(`received unexpected request:\n\n${body}`)
+        done(`received unexpected request:\n\n${body}`)
       },
       async withServer ({ port }) {
         try {

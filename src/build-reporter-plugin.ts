@@ -1,7 +1,7 @@
 import reportBuild from 'bugsnag-build-reporter'
 
 import type { Plugin } from 'vite'
-import { red } from 'chalk'
+import colors from 'picocolors'
 import type { BuildReporterConfig, ReportBuildOptions } from './types'
 import { warn } from './utils'
 
@@ -24,9 +24,9 @@ export default function BugsnagBuildReporterPlugin (config: BuildReporterConfig)
       try {
         if (sendReport) await reportBuild(build, options)
       }
-      catch (error) {
+      catch (error: any) {
         // A failure to notify Bugsnag shouldn't fail the build.
-        warn(`unable to report build\n${red(error.message)}`)
+        warn(`unable to report build\n${colors.red(error.message)}`)
       }
     },
   }

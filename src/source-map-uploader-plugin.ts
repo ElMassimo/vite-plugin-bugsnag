@@ -5,7 +5,7 @@ import glob from 'fast-glob'
 import type { Plugin } from 'vite'
 import { browser } from '@bugsnag/source-maps'
 
-import { blue } from 'chalk'
+import colors from 'picocolors'
 import type { Sourcemap, SourceMapUploaderConfig } from './types'
 
 import { debug, warn, limitParallelism } from './utils'
@@ -18,7 +18,7 @@ export default function BugsnagSourceMapUploaderPlugin (config: SourceMapUploade
     throw new Error(`[BugsnagSourceMapUploader] "apiKey" is required.\nProvided:\n${JSON.stringify(options)}`)
 
   function uploadSourcemap ({ url, source, map }: Sourcemap) {
-    debug(`uploading sourcemap for "${blue(url)}"`)
+    debug(`uploading sourcemap for "${colors.blue(url)}"`)
     return browser.uploadOne({
       bundleUrl: url,
       bundle: source,
