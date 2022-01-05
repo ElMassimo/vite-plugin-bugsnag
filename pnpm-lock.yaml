@@ -12,17 +12,21 @@ importers:
       bugsnag-build-reporter: ^2.0.0
       concat-stream: ^1.6.2
       conventional-changelog-cli: ^2.2.2
+      cross-spawn: ^7.0.3
       debug: ^4.3
+      enquirer: ^2.3.6
       eslint: ^7.32.0
       fast-glob: ^3.2
       husky: ^5.2.0
       lint-staged: ^10.5.4
+      minimist: ^1.2.5
       once: ^1.4.0
       p-limit: ^3.1
       parse-formdata: ^1.0.2
       picocolors: ^1.0
       pinst: ^2.1.6
       rollup: ^2.63.0
+      semver: ^7.3.5
       tsup: ^5.11.10
       typescript: ^4.5.4
       vite: ^2.7.10
@@ -41,13 +45,17 @@ importers:
       '@typescript-eslint/eslint-plugin': 4.33.0_eslint@7.32.0+typescript@4.5.4
       concat-stream: 1.6.2
       conventional-changelog-cli: 2.2.2
+      cross-spawn: 7.0.3
+      enquirer: 2.3.6
       eslint: 7.32.0
       husky: 5.2.0
       lint-staged: 10.5.4
+      minimist: 1.2.5
       once: 1.4.0
       parse-formdata: 1.0.2
       pinst: 2.1.6
       rollup: 2.63.0
+      semver: 7.3.5
       tsup: 5.11.10_typescript@4.5.4
       typescript: 4.5.4
       vite: 2.7.10
