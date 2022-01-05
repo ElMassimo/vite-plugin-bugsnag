@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/ElMassimo/vite-plugin-bugsnag/compare/v1.0.2...v2.0.0) (2022-01-05)
+
+
+### Features
+
+* add metadata to type definition ([ff1f96b](https://github.com/ElMassimo/vite-plugin-bugsnag/commit/ff1f96bdbe2da70e345e06aeb994bbfe6062dd5b))
+* upgrade bugsnag packages, switch to picocolors ([a4dfb59](https://github.com/ElMassimo/vite-plugin-bugsnag/commit/a4dfb5915a8301a42452b26e3bcdf2336be7e103))
+
+
+
 ## [1.0.2](https://github.com/ElMassimo/vite-plugin-bugsnag/compare/v1.0.1...v1.0.2) (2021-04-22)
 
 
