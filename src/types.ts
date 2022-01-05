@@ -15,6 +15,12 @@ export interface Build {
    */
   releaseStage?: string
   /**
+   * Key value pairs containing any custom build information that provides
+   * useful metadata about the build. e.g. build configuration parameters,
+   * versions of dependencies, reason for the build etc.
+   */
+  metadata?: object
+  /**
    *  An object describing the source control of the build.
    *
    *  If not specified, the module will attempt to detect source control information from .git, .hg and the nearest package.json
