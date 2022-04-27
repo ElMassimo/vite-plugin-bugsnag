@@ -2,11 +2,10 @@ import * as http from 'http'
 import type { AddressInfo } from 'net'
 import { join } from 'path'
 import type { Readable } from 'node:stream'
+import { promisify } from 'util'
 import { build } from 'vite'
-import parseFormdata from 'parse-formdata'
-import once from 'once'
+import parseFormdataWithCallback from 'parse-formdata'
 import concat from 'concat-stream'
-import type { DoneCallback } from 'vitest'
 import { writeServerPort } from './fixtures/support'
 
 type Fixture = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g'
@@ -34,59 +33,59 @@ export async function buildFixture (name: Fixture, { port }: Options) {
 }
 
 interface CreateServerOptions {
-  done: DoneCallback
   onRequest?: (body: string) => void
   handleRequest?: (req: http.IncomingMessage, res: http.ServerResponse) => void
   withServer: (options: Options) => Promise<void>
 }
 
-export async function createServer ({ done, handleRequest, onRequest, withServer }: CreateServerOptions) {
-  const server = http.createServer((req, res) => {
-    if (!handleRequest) {
-      handleRequest = () => {
-        let body = ''
-        req.on('data', (d) => { body += d })
-        req.on('end', () => {
-          try {
-            res.end('ok')
-            onRequest(body)
-          }
-          catch (error) {
-            res.end(error.message)
-            done(error)
-          }
-        })
+const parseFormdata = promisify(parseFormdataWithCallback)
+
+export async function createServer ({ handleRequest, onRequest, withServer }: CreateServerOptions) {
+  return new Promise(async (resolve, reject) => {
+    const server = http.createServer(async (req, res) => {
+      if (!handleRequest) {
+        handleRequest = () => {
+          let body = ''
+          req.on('data', (d) => { body += d })
+          req.on('end', () => {
+            try {
+              res.end('ok')
+              onRequest(body)
+            }
+            catch (error) {
+              res.end(error.message)
+              reject(error)
+            }
+          })
+        }
       }
+      await handleRequest(req, res)
+    })
+    server.listen()
+    try {
+      resolve(await withServer({ port: (server.address() as AddressInfo).port }))
     }
-    handleRequest(req, res)
+    catch (error) {
+      reject(error)
+    }
+    finally {
+      server.close()
+    }
   })
-  server.listen()
-  try {
-    await withServer({ port: (server.address() as AddressInfo).port })
-  }
-  finally {
-    server.close()
-    done()
-  }
 }
 
 interface CreateFormServerOptions {
-  done: DoneCallback
   onRequest?: (data: FormData) => void
   onPart?: (part: FormDataPart, data: string, partsRead: number) => boolean
   withServer: (options: Options) => Promise<void>
 }
 
-export async function createFormServer ({ done, withServer, onRequest, onPart }: CreateFormServerOptions) {
-  await createServer({
-    done,
+export async function createFormServer ({ withServer, onRequest, onPart }: CreateFormServerOptions) {
+  return createServer({
     withServer,
-    handleRequest (req, res) {
-      parseFormdata(req, once((error: Error | undefined, data: FormData) => {
-        if (error) {
-          res.end(error.message)
-          done(error)
-        }
+    async handleRequest (req, res) {
+      try {
+        const data = await parseFormdata(req)
         try {
           onRequest(data)
           let partsRead = 0
@@ -102,9 +101,15 @@ export async function createFormServer ({ done, withServer, onRequest, onPart }:
         }
         catch (error) {
           res.end(error.message)
-          done(error)
+          throw error
         }
-      }))
+      }
+      catch (error) {
+        if (error) {
+          res.end(error.message)
+          throw error
+        }
+      }
     },
   })
 }

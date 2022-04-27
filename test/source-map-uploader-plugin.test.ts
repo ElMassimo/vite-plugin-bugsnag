@@ -9,11 +9,10 @@ describe('BugsnagSourceMapUploaderPlugin', () => {
     expect(() => BugsnagSourceMapUploaderPlugin({ apiKey: '1.2.3' })).not.toThrow()
   })
 
-  test('sends source maps for files inside folder', async (done) => {
+  test('sends source maps for files inside folder', async () => {
     expect.assertions(5)
 
     await createFormServer({
-      done,
       async withServer ({ port }) {
         await buildFixture('c', { port })
       },
@@ -30,22 +29,20 @@ describe('BugsnagSourceMapUploaderPlugin', () => {
     })
   })
 
-  test('it ignores source maps if you want', async (done) => {
+  test('it ignores source maps if you want', async () => {
     expect.assertions(0)
 
     await createFormServer({
-      done,
       async withServer ({ port }) {
         await buildFixture('d', { port })
       },
     })
   })
 
-  test('sends sourcemaps from successful build along with bundle id', async (done) => {
+  test('sends sourcemaps from successful build along with bundle id', async () => {
     expect.assertions(7)
 
     await createFormServer({
-      done,
       onRequest ({ fields, parts }) {
         expect(fields.apiKey).toEqual('YOUR_API_KEY')
         expect(fields.codeBundleId).toEqual('1.0.0-b12')

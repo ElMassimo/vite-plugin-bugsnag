@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-bugsnag",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Report builds and upload source maps to Bugsnag",
   "keywords": [
     "bugsnag",
@@ -62,8 +62,8 @@
     "semver": "^7.3.5",
     "tsup": "^5.11.10",
     "typescript": "^4.5.4",
-    "vite": "^2.7.10",
-    "vitest": "^0.0.132"
+    "vite": "^3.0.0",
+    "vitest": "^0.8"
   },
   "dependencies": {
     "@bugsnag/source-maps": "^2.3.0",
@@ -74,7 +74,7 @@
     "picocolors": "^1.0"
   },
   "peerDependencies": {
-    "vite": "^2.7"
+    "vite": ">= 2.7"
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -84,6 +84,9 @@
   "eslintConfig": {
     "extends": [
       "@mussi/eslint-config"
-    ]
+    ],
+    "rules": {
+      "no-async-promise-executor": "off"
+    }
   }
 }

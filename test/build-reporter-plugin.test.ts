@@ -2,10 +2,9 @@ import { describe, test, expect } from 'vitest'
 import { createServer, buildFixture } from './utils'
 
 describe('BugsnagBuildReporterPlugin', () => {
-  test('sends upon successful build', async (done) => {
+  test('sends upon successful build', async () => {
     expect.assertions(3)
     await createServer({
-      done,
       onRequest (body) {
         const build = JSON.parse(body)
         expect(build).toBeDefined()
@@ -18,18 +17,18 @@ describe('BugsnagBuildReporterPlugin', () => {
     })
   })
 
-  test('doesn’t send upon unsuccessful build', async (done) => {
+  test('doesn’t send upon unsuccessful build', async () => {
+    expect.assertions(1)
     await createServer({
-      done,
       onRequest (body) {
-        done(`received unexpected request:\n\n${body}`)
+        expect(body).toContain(`received unexpected request:\n\n${body}`)
       },
       async withServer ({ port }) {
         try {
           await buildFixture('b', { port })
         }
         catch (error) {
-          expect(error.message).toMatch('Unexpected token (2:23)')
+          expect(error.message).toMatch('Parse error @:2:24')
         }
       },
     })
