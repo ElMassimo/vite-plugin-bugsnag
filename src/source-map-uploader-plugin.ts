@@ -81,7 +81,7 @@ export default function BugsnagSourceMapUploaderPlugin (config: SourceMapUploade
       newSourcemaps.forEach(({ map }) => uploadedMaps.add(map))
 
       await Promise.all(
-        sourcemaps.map(sourcemap => limitParallelism(() => uploadSourcemap(sourcemap))),
+        newSourcemaps.map(sourcemap => limitParallelism(() => uploadSourcemap(sourcemap))),
       )
     },
   }
