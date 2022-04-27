@@ -13,6 +13,7 @@ import { debug, warn, limitParallelism } from './utils'
 export default function BugsnagSourceMapUploaderPlugin (config: SourceMapUploaderConfig): Plugin {
   // eslint-disable-next-line prefer-const
   let { base, ignoredBundleExtensions = ['.css'], ...options } = config
+  const uploadedMaps = new Set<string>()
 
   if (typeof options.apiKey !== 'string' || options.apiKey.length < 1)
     throw new Error(`[BugsnagSourceMapUploader] "apiKey" is required.\nProvided:\n${JSON.stringify(options)}`)
@@ -73,6 +74,12 @@ export default function BugsnagSourceMapUploaderPlugin (config: SourceMapUploade
 
       const files = await glob('./**/*.map', { cwd: outputDir })
       const sourcemaps = files.flatMap(sourcemapFromFile)
+      // Exclude sourcemaps that have already been uploaded via a previons
+      // writeBundle call, e.g. by vite-plugin-legacy.
+      const newSourcemaps = sourcemaps.filter(({ map }) => !uploadedMaps.has(map))
+
+      newSourcemaps.forEach(({ map }) => uploadedMaps.add(map))
+
       await Promise.all(
         sourcemaps.map(sourcemap => limitParallelism(() => uploadSourcemap(sourcemap))),
       )
