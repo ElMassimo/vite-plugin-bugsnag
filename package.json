@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-bugsnag",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Report builds and upload source maps to Bugsnag",
   "keywords": [
     "bugsnag",

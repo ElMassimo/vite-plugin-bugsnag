@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/ElMassimo/vite-plugin-bugsnag/compare/v2.0.0...v2.0.1) (2022-04-27)
+
+
+### Bug Fixes
+
+* support @vitejs/plugin-legacy ([#2](https://github.com/ElMassimo/vite-plugin-bugsnag/issues/2)) ([34ef1b7](https://github.com/ElMassimo/vite-plugin-bugsnag/commit/34ef1b7115abe19bf2fd6006fe4a3b6d40dbf50e))
+
+
+
 # [2.0.0](https://github.com/ElMassimo/vite-plugin-bugsnag/compare/v1.0.2...v2.0.0) (2022-01-05)
 
 
