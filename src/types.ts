@@ -25,19 +25,20 @@ export interface Build {
    *
    *  If not specified, the module will attempt to detect source control information from .git, .hg and the nearest package.json
    */
-  sourceControl?: object
-  /**
-   *  The application you are using to manage your source code repository
-   */
-  provider?: 'github' | 'github-enterprise' | 'gitlab' | 'gitlab-onpremise' | 'bitbucket' | 'bitbucket-server'
-  /**
-   *  A URL (git/ssh/https) pointing to the repository, or webpage representing the repository
-   */
-  repository?: string
-  /**
-   *  The unique identifier for the commit (e.g. git SHA)
-   */
-  revision?: string
+  sourceControl?: {
+    /**
+     *  The application you are using to manage your source code repository
+     */
+    provider?: 'github' | 'github-enterprise' | 'gitlab' | 'gitlab-onpremise' | 'bitbucket' | 'bitbucket-server'
+    /**
+     *  A URL (git/ssh/https) pointing to the repository, or webpage representing the repository
+     */
+    repository?: string
+    /**
+     *  The unique identifier for the commit (e.g. git SHA)
+     */
+    revision?: string
+  }
   /**
    *  The name of the person/machine that created this build.
    *
