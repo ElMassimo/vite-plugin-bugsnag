@@ -6,7 +6,7 @@ import { getEndpoint } from '../support'
 export default defineConfig({
   base: 'https://foobar.com/js/',
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       input: [resolve(__dirname, './app.js')],
     },
   },

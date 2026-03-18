@@ -13,21 +13,19 @@
     "dist"
   ],
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
     }
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "vitest --global",
-    "dev": "npm run build -- --watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm --clean",
+    "test": "vp test",
+    "dev": "vp pack --watch",
+    "build": "vp pack",
     "release": "node scripts/release.cjs",
     "postinstall": "husky install",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
@@ -45,7 +43,7 @@
   "devDependencies": {
     "@mussi/eslint-config": "^0.5.1",
     "@types/debug": "^4.1.7",
-    "@types/node": "^17.0.8",
+    "@types/node": "^22.12.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "concat-stream": "^1.6.2",
     "conventional-changelog-cli": "^2.2.2",
@@ -58,12 +56,10 @@
     "once": "^1.4.0",
     "parse-formdata": "^1.0.2",
     "pinst": "^2.1.6",
-    "rollup": "^2.63.0",
     "semver": "^7.3.5",
-    "tsup": "^5.11.10",
-    "typescript": "^4.5.4",
-    "vite": "^3.0.0",
-    "vitest": "^0.8"
+    "typescript": "^5.0.0",
+    "vite": "^8.0.0",
+    "vite-plus": "latest"
   },
   "dependencies": {
     "@bugsnag/source-maps": "^2.3.0",
@@ -74,7 +70,7 @@
     "picocolors": "^1.0"
   },
   "peerDependencies": {
-    "vite": ">= 2.7"
+    "vite": ">= 8"
   },
   "lint-staged": {
     "*.{js,ts}": [

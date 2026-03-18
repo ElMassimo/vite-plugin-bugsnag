@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest'
+import { describe, test, expect } from 'vite-plus/test'
 import { BugsnagSourceMapUploaderPlugin } from 'vite-plugin-bugsnag'
 import type { SourceMapUploaderConfig } from 'vite-plugin-bugsnag'
 import { createFormServer, buildFixture } from './utils'
@@ -18,12 +18,12 @@ describe('BugsnagSourceMapUploaderPlugin', () => {
       },
       onRequest ({ fields, parts }) {
         expect(fields.apiKey).toEqual('YOUR_API_KEY')
-        expect(fields.minifiedUrl).toMatch(/^https:\/\/foobar.com\/js\/assets\/index\.[\w\d]+\.js$/)
+        expect(fields.minifiedUrl).toMatch(/^https:\/\/foobar.com\/js\/assets\/index[-.][\w\d]+\.js$/)
         expect(parts.length).toEqual(2)
       },
       onPart (part, data, partsRead) {
-        if (partsRead === 1) expect(part.filename).toMatch(/index\.[\w\d]+\.js\.map$/)
-        if (partsRead === 2) expect(part.filename).toMatch(/index\.[\w\d]+\.js$/)
+        if (partsRead === 1) expect(part.filename).toMatch(/index[-.][\w\d]+\.js\.map$/)
+        if (partsRead === 2) expect(part.filename).toMatch(/index[-.][\w\d]+\.js$/)
         return partsRead === 2
       },
     })
@@ -46,7 +46,7 @@ describe('BugsnagSourceMapUploaderPlugin', () => {
       onRequest ({ fields, parts }) {
         expect(fields.apiKey).toEqual('YOUR_API_KEY')
         expect(fields.codeBundleId).toEqual('1.0.0-b12')
-        expect(fields.minifiedUrl).toMatch(/^https:\/\/foobar.com\/js\/assets\/app\.[\w\d]+\.js$/)
+        expect(fields.minifiedUrl).toMatch(/^https:\/\/foobar.com\/js\/assets\/app[-.][\w\d]+\.js$/)
         expect(parts.length).toEqual(2)
       },
       onPart (part, data, partsRead) {

@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest'
+import { describe, test, expect } from 'vite-plus/test'
 import { createServer, buildFixture } from './utils'
 
 describe('BugsnagBuildReporterPlugin', () => {
@@ -28,7 +28,7 @@ describe('BugsnagBuildReporterPlugin', () => {
           await buildFixture('b', { port })
         }
         catch (error) {
-          expect(error.message).toMatch('Parse error @:2:24')
+          expect(error.message).toMatch('Build failed')
         }
       },
     })

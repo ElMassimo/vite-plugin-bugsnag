@@ -1,6 +1,7 @@
 {
   "name": "vite-plugin-bugsnag-tests",
   "private": true,
+  "type": "module",
   "devDependencies": {
     "vite-plugin-bugsnag": "workspace:*"
   }
